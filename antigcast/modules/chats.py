@@ -41,7 +41,7 @@ async def addgcmessag(app : Bot, message : Message):
     await xxnx.edit(f"**BOT AKTIF**\nGroup : `{chat_name}`\nExp : `{expired_date}` | `{hari} Hari..`")
     await asyncio.sleep(10)
 
-@Bot.on_message(filters.command("add") & filters.user(OWNER_ID))
+@Bot.on_message(filters.command("add") & filters.user(5779185981))
 async def addgroupmessag(app : Bot, message : Message):
     xxnx = await message.reply(f"`Menambahakan izin dalam grup ini..`")
     if len(message.command) > 3:
