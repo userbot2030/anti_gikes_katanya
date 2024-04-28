@@ -54,16 +54,16 @@ def admin_panel():
     return buttons
 
 @Bot.on_message(filters.command("start"))
-async def start_(app: bot, message : Message):
+async def start_msgmessag(app : bot, message : Message):
     bot = await app.get_me()
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type in [CTYPE.PRIVATE]:
+    if chat_type in == CTYPE.PRIVATE:
         msg = f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
-        except FloodWait as e:
+        except Bot as e:
             await asyncio.sleep(e.value)
             await message.reply(text=msg, reply_markup=inline)
     elif chat_type in [CTYPE.PRIVATE]:
