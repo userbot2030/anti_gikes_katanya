@@ -24,11 +24,11 @@ inlinegc = InlineKeyboardMarkup(
 inline = InlineKeyboardMarkup(
     [
         [
-                    InlineKeyboardButton(text="Daftarkan Grup", callback_data = "langganan")
+                    InlineKeyboardButton(text="Daftarkan Grup", callback_data ="langganan")
         ],
         [
                     InlineKeyboardButton(text="Creator", url=f"http://t.me/mhmdwldnnnn"),
-                    InlineKeyboardButton(text="Channel", url=f"https://t.me/Disney_storeDan") 
+                    InlineKeyboardButton(text="Channel", url="https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -44,7 +44,7 @@ def add_panel(username):
 
     return button
 
-def admin_panel(username):
+def admin_panel():
     buttons = [
         [
             InlineKeyboardButton(text="Hubungi Owner", url=f"http://t.me/mhmdwldnnnn")
@@ -60,7 +60,7 @@ async def start_msgmessag(app : Bot, message : Message):
     user = message.from_user.mention
     chat_type = message.chat.type
     if chat_type == CTYPE.PRIVATE:
-        msg = f"👋🏻 Hi {user}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+        msg = f"**👋🏻 Hi {from_user.mention}!**\n\n_Bot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
         except FloodWait as e:
@@ -88,7 +88,7 @@ async def close_cbq(client: Bot, query: CallbackQuery):
     except:
         pass
 
-#edit harganya
+
 
 @Bot.on_callback_query(filters.regex(r"langganan"))
 async def bayar_cbq(client: Bot, query: CallbackQuery):
