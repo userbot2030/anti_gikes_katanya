@@ -15,8 +15,8 @@ inline buttons
 inlinegc = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton(text="Owner", url="https://t.me/mhmdwldnnnn"), 
-            InlineKeyboardButton(text="Store", url="https://t.me/Disney_storeDan") 
+            InlineKeyboardButton(text="Owner", url=f"https://t.me/mhmdwldnnnn"), 
+            InlineKeyboardButton(text="Channel", url=f"https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -24,11 +24,11 @@ inlinegc = InlineKeyboardMarkup(
 inline = InlineKeyboardMarkup(
     [
         [
-                    InlineKeyboardButton(text="Daftarkan Grup", callback_data ="langganan")
+                    InlineKeyboardButton(text="Daftarkan Grup", callback_data = "langganan")
         ],
         [
                     InlineKeyboardButton(text="Creator", url=f"http://t.me/mhmdwldnnnn"),
-                    InlineKeyboardButton(text="Channel", url="https://t.me/Disney_storeDan") 
+                    InlineKeyboardButton(text="Channel", url=f"https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -44,7 +44,7 @@ def add_panel(username):
 
     return button
 
-def admin_panel():
+def admin_panel(username):
     buttons = [
         [
             InlineKeyboardButton(text="Hubungi Owner", url=f"http://t.me/mhmdwldnnnn")
@@ -54,28 +54,26 @@ def admin_panel():
     return buttons
 
 @Bot.on_message(filters.command("start"))
-async def start_msgmessag(app : bot, message : Message):
+async def start_msgmessag(app : Bot, message : Message):
     bot = await app.get_me()
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type in == CTYPE.PRIVATE:
-        msg = f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+    if chat_type == CTYPE.PRIVATE:
+        msg = f"👋🏻 Hi {user}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
-        except Bot as e:
+        except FloodWait as e:
             await asyncio.sleep(e.value)
             await message.reply(text=msg, reply_markup=inline)
-    elif chat_type in [CTYPE.PRIVATE]:
-        msg =  f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+    elif chat_type in [CTYPE.GROUP, CTYPE.SUPERGROUP]:
+        msg = f"**Hey!**\n\n__Jadikan saya sebagai admin group, maka group ini tidak akan ada spam gcast yang mengganggu!__\n\nCreated by @mhmdwldnnnn"
         
         try:
             await message.reply(text=msg, reply_markup=inlinegc)
         except FloodWait as e:
             await asyncio.sleep(e.value)
             await message.reply(text=msg, reply_markup=inlinegc)
-    elif chat_type in [CTYPE.GROUP, CTYPE.SUPERGROUP]:      
-        msg = f"**Hey!**\n\n__Jadikan saya sebagai admin group, maka group ini tidak akan ada spam gcast yang mengganggu!__\n\nCreated by @mhmdwldnnnn"
 
 @Bot.on_callback_query(filters.regex(r"close"))
 async def close_cbq(client: Bot, query: CallbackQuery):
@@ -102,4 +100,4 @@ async def bayar_cbq(client: Bot, query: CallbackQuery):
     await query.edit_message_text(
         text = text,
         reply_markup = btn
-    )
+)
