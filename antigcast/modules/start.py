@@ -11,7 +11,7 @@ from antigcast.helpers.database import *
 
 CTYPE = enums.ChatType
 
-# inline buttons
+inline buttons
 inlinegc = InlineKeyboardMarkup(
     [
         [
