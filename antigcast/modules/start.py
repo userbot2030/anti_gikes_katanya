@@ -60,7 +60,7 @@ async def start_msgmessag(app : Bot, message : Message):
     user = message.from_user.mention
     chat_type = message.chat.type
     if chat_type == CTYPE.PRIVATE:
-        msg = f"**👋🏻 Hi {from_user.mention}!**\n\n_Bot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+        msg = f"**👋🏻 Hi {username}!**\n\n_Bot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
         except FloodWait as e:
