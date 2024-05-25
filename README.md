@@ -1,6 +1,6 @@
 # ANTI GIKES KATANYA
 Bot telegram buat apus apusin gikes,
-repo ini bukan buatan GeezRam atau Fakedevs, cuma nyolong dari yang udah nyolong dari yang nyolong juga
+repo ini bukan buatan Muhamad Wildan atau Dan, cuma nyolong dari yang udah nyolong dari yang nyolong juga
 
 ## TAPI BOONG
 ini modul dari bot manage (blacklist word filter), dengan sedikit modifikasi dari mereka trus dijual
