@@ -11,7 +11,7 @@ from antigcast.helpers.database import *
 
 CTYPE = enums.ChatType
 
-# inline buttons
+#  inline buttons
 inlinegc = InlineKeyboardMarkup(
     [
         [
@@ -21,7 +21,7 @@ inlinegc = InlineKeyboardMarkup(
     ]
 )
 
-inline = InlineKeyboardMarkup(
+buttons = InlineKeyboardMarkup(
     [
         [
                     InlineKeyboardButton(text="Daftarkan Grup", callback_data ="langganan")
@@ -34,7 +34,7 @@ inline = InlineKeyboardMarkup(
 )
 
 def add_panel(username):
-    button = InlineKeyboardMarkup(
+button = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(text="Tambahkan Ke Group", url=f"http://t.me/{username}?startgroup=appstart")
@@ -45,7 +45,7 @@ def add_panel(username):
     return button
 
 def admin_panel():
-    buttons = [
+ inline buttons = [
         [
             InlineKeyboardButton(text="Hubungi Owner", url=f"http://t.me/mhmdwldnnnn")
         ],
@@ -59,7 +59,7 @@ async def start_msgmessag(app : Bot, message : Message):
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type == [CTYPE.PRIVAT CTYPE.SUPERPRIVATE]:
+    if chat_type in == [CTYPE.PRIVAT CTYPE.SUPERPRIVATE]:
         msg = f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
@@ -95,7 +95,7 @@ async def bayar_cbq(client: Bot, query: CallbackQuery):
     btn = InlineKeyboardMarkup(admin_panel())
     text = """**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast**
 
-1 Bulan : `Rp. 30.000,-`  
+1 Bulan : `Rp. 25.000,-`  
 3 Bulan : `RP. 70.000,-`"""
     await query.edit_message_text(
         text = text,
