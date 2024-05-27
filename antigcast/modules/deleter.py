@@ -15,8 +15,8 @@ CTYPE = enums.ChatType
 inlinegc = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton(text="Owner", url="http://t.me/mhmdwldnnnn"), #isi link telegram 
-            InlineKeyboardButton(text="Channel", url="http://t.me/Disney_storeDan") #isi link channel store
+            InlineKeyboardButton(text="Owner", url="https://t.me/mhmdwldnnnn"), 
+            InlineKeyboardButton(text="Store", url="https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -24,11 +24,11 @@ inlinegc = InlineKeyboardMarkup(
 inline = InlineKeyboardMarkup(
     [
         [
-                    InlineKeyboardButton(text="Daftarkan Grup", callback_data = "langganan")
+                    InlineKeyboardButton(text="Daftarkan Grup", callback_data ="langganan")
         ],
         [
                     InlineKeyboardButton(text="Creator", url=f"http://t.me/mhmdwldnnnn"),
-                    InlineKeyboardButton(text="Channel", url="http://t.me/Disney_storeDan") #isi link channel store
+                    InlineKeyboardButton(text="Channel", url="https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -59,8 +59,8 @@ async def start_msgmessag(app : Bot, message : Message):
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type == CTYPE.PRIVATE:
-        msg = f"👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+    if chat_type == CTYPE.GROUP:
+        msg = f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
         except FloodWait as e:
