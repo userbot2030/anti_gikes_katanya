@@ -1,81 +1,103 @@
 import asyncio
 
 from antigcast import Bot
-from pyrogram import filters
-from pyrogram.types import Message
-from pyrogram.errors import FloodWait, MessageDeleteForbidden, UserNotParticipant
+from pyrogram import filters, enums
+from pyrogram.errors import FloodWait
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from antigcast.config import *
-from antigcast.helpers.tools import *
-from antigcast.helpers.admins import *
-from antigcast.helpers.message import *
 from antigcast.helpers.database import *
 
 
-@Bot.on_message(filters.command("addbl") & ~filters.private & Admin)
-async def addblmessag(app : Bot, message : Message):
-    trigger = get_arg(message)
-    if message.reply_to_message:
-        trigger = message.reply_to_message.text or message.reply_to_message.caption
+CTYPE = enums.ChatType
 
-    xxnx = await message.reply(f"`Menambahakan` {trigger} `ke dalam blacklist..`")
-    try:
-        await add_bl_word(trigger.lower())
-    except BaseException as e:
-        return await xxnx.edit(f"Error : `{e}`")
+# inline buttons
+inlinegc = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(text="Owner", url="http://t.me/mhmdwldnnnn"), #isi link telegram 
+            InlineKeyboardButton(text="Channel", url="http://t.me/Disney_storeDan") #isi link channel store
+        ]
+    ]
+)
 
+inline = InlineKeyboardMarkup(
+    [
+        [
+                    InlineKeyboardButton(text="Daftarkan Grup", callback_data = "langganan")
+        ],
+        [
+                    InlineKeyboardButton(text="Creator", url=f"http://t.me/mhmdwldnnnn"),
+                    InlineKeyboardButton(text="Channel", url="http://t.me/Disney_storeDan") #isi link channel store
+        ]
+    ]
+)
+
+def add_panel(username):
+    button = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="Tambahkan Ke Group", url=f"http://t.me/{username}?startgroup=appstart")
+            ]
+        ]
+    )
+
+    return button
+
+def admin_panel():
+    buttons = [
+        [
+            InlineKeyboardButton(text="Hubungi Owner", url=f"http://t.me/mhmdwldnnnn")
+        ],
+    ]
+
+    return buttons
+
+@Bot.on_message(filters.command("start"))
+async def start_msgmessag(app : Bot, message : Message):
+    bot = await app.get_me()
+    username = bot.username
+    user = message.from_user.mention
+    chat_type = message.chat.type
+    if chat_type == CTYPE.PRIVATE:
+        msg = f"👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+        try:
+            await message.reply(text=msg, reply_markup=inline)
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
+            await message.reply(text=msg, reply_markup=inline)
+    elif chat_type in [CTYPE.GROUP, CTYPE.SUPERGROUP]:
+        msg = f"**Hey!**\n\n__Jadikan saya sebagai admin group, maka group ini tidak akan ada spam gcast yang mengganggu!__\n\nCreated by @mhmdwldnnnn"
+        
+        try:
+            await message.reply(text=msg, reply_markup=inlinegc)
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
+            await message.reply(text=msg, reply_markup=inlinegc)
+
+@Bot.on_callback_query(filters.regex(r"close"))
+async def close_cbq(client: Bot, query: CallbackQuery):
     try:
-        await xxnx.edit(f"{trigger} `berhasil di tambahkan ke dalam blacklist..`")
+        await query.message.reply_to_message.delete()
+        await client.send_message(query.from_user.id, "**Pendaftaran Dibatalkan**")
     except:
-        await app.send_message(message.chat.id, f"{trigger} `berhasil di tambahkan ke dalam blacklist..`")
-
-    await asyncio.sleep(5)
-    await xxnx.delete()
-    await message.delete()
-
-@Bot.on_message(filters.command("delbl") & ~filters.private & Admin)
-async def deldblmessag(app : Bot, message : Message):
-    trigger = get_arg(message)
-    if message.reply_to_message:
-        trigger = message.reply_to_message.text or message.reply_to_message.caption
-
-    xxnx = await message.reply(f"`Menghapus` {trigger} `ke dalam blacklist..`")
-    try:
-        await remove_bl_word(trigger.lower())
-    except BaseException as e:
-        return await xxnx.edit(f"Error : `{e}`")
-
-    try:
-        await xxnx.edit(f"{trigger} `berhasil di hapus dari blacklist..`")
-    except:
-        await app.send_message(message.chat.id, f"{trigger} `berhasil di hapus dari blacklist..`")
-
-    await asyncio.sleep(5)
-    await xxnx.delete()
-    await message.delete()
-
-
-@Bot.on_message(filters.command("listbl") & ~filters.private & Admin)
-async def deletermessag(app: Bot, message: Message):
-    text = f"Maaf, Grup ini tidak terdaftar di dalam list. Silahkan hubungi @mhmdwldnnnn Untuk mendaftarkan Group Anda.\n\n**Bot akan meninggalkan group!**"
-    chat = message.chat.id
-    chats = await get_actived_chats()
-    
-    if not await isGcast(filters, app, message):
-        if chat not in chats:
-            await message.reply(text=text)
-            await asyncio.sleep(5)
-            try:
-                await app.leave_chat(chat)
-            except UserNotParticipant as e:
-                print(e)
-            return
-    
-    try:
-        if await isGcast(filters, app, message):
-            await message.delete()
-    except FloodWait as e:
-        await asyncio.sleep(e.x)
-        await message.delete()
-    except MessageDeleteForbidden:
         pass
+    try:
+        await query.message.delete()
+        await client.send_message(query.from_user.id, "**Pendaftaran Dibatalkan**")
+    except:
+        pass
+
+#edit harganya
+
+@Bot.on_callback_query(filters.regex(r"langganan"))
+async def bayar_cbq(client: Bot, query: CallbackQuery):
+    btn = InlineKeyboardMarkup(admin_panel())
+    text = """**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast **
+
+1 Bulan : `Rp. 25.000,-`  
+3 Bulan : `RP. 70.000,-`"""
+    await query.edit_message_text(
+        text = text,
+        reply_markup = btn
+    )
