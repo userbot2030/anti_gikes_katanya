@@ -11,12 +11,12 @@ from antigcast.helpers.database import *
 
 CTYPE = enums.ChatType
 
-inline buttons
+# inline buttons
 inlinegc = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton(text="Owner", url=f"https://t.me/mhmdwldnnnn"), 
-            InlineKeyboardButton(text="Channel", url=f"https://t.me/Disney_storeDan") 
+            InlineKeyboardButton(text="Owner", url="https://t.me/mhmdwldnnnn"), 
+            InlineKeyboardButton(text="Store", url="https://t.me/Disney_storeDan") 
         ]
     ]
 )
@@ -59,8 +59,8 @@ async def start_msgmessag(app : Bot, message : Message):
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type = CTYPE.PRIVATE:
-        msg = f"**👋🏻 Hi {username}!**\n\n_Bot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
+    if chat_type = CTYPE.GROUP:
+        msg = f"**👋🏻 Hi {username}!\n\nBot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
         except FloodWait as e:
@@ -88,14 +88,14 @@ async def close_cbq(client: Bot, query: CallbackQuery):
     except:
         pass
 
-
+#edit harganya
 
 @Bot.on_callback_query(filters.regex(r"langganan"))
 async def bayar_cbq(client: Bot, query: CallbackQuery):
     btn = InlineKeyboardMarkup(admin_panel())
-    text = """**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast**
+    text = """**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast **
 
-1 Bulan : `Rp. 30.000,-`
+1 Bulan : `Rp. 30.000,-`  
 3 Bulan : `RP. 70.000,-`"""
     await query.edit_message_text(
         text = text,
