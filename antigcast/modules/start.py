@@ -24,7 +24,7 @@ inlinegc = InlineKeyboardMarkup(
 buttons = InlineKeyboardMarkup(
     [
         [
-                    InlineKeyboardButton(text="Daftarkan Grup", callback_data="langganan")
+                    InlineKeyboardButton(text="Daftarkan Grup", callback_data ="langganan")
         ],
         [
                     InlineKeyboardButton(text="Creator", url=f"http://t.me/mhmdwldnnnn"),
