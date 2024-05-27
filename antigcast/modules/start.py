@@ -59,7 +59,7 @@ async def start_msgmessag(app : Bot, message : Message):
     username = bot.username
     user = message.from_user.mention
     chat_type = message.chat.type
-    if chat_type in = CTYPE.PRIVATE:
+    if chat_type = CTYPE.PRIVATE:
         msg = f"**👋🏻 Hi {username}!**\n\n_Bot ini akan menghapus otomatis pesan gcast yang mengganggu di group. Tambahkan bot sebagai admin agar bisa berjalan dengan baik."
         try:
             await message.reply(text=msg, reply_markup=inline)
@@ -93,7 +93,7 @@ async def close_cbq(client: Bot, query: CallbackQuery):
 @Bot.on_callback_query(filters.regex(r"langganan"))
 async def bayar_cbq(client: Bot, query: CallbackQuery):
     btn = InlineKeyboardMarkup(admin_panel())
-    text = f"**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast**
+    text = """**Silahkan pilih Plan Subscription untuk berlangganan Bot Anti Gcast**
 
 1 Bulan : `Rp. 30.000,-`
 3 Bulan : `RP. 70.000,-`"""
