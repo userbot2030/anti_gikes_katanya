@@ -1,7 +1,7 @@
 {
     "name": "Anti Gcast",
     "description": "I am Simple Anti Gcast",
-    "logo": "https://github.com/hitokizzy/anti_gikes_katanya",
+    "logo": "https://github.com/userbot2030/anti_gikes_katanya",
     "keywords": [
         "Auto",
         "Approved",
@@ -10,7 +10,7 @@
         "Link",
         "Bot"
     ],
-    "repository": "https://github.com/hitokizzy/anti_gikes_katanya",
+    "repository": "https://github.com/userbot2030/anti_gikes_katanya",
     "env": {
         "APP_ID": {
             "description": "Your APP ID",
