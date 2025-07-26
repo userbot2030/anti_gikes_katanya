@@ -19,8 +19,8 @@ BROADCAST_AS_COPY = True
 
 PLUG = dict(root="antigcast/plugins")
 
-OWNER_ID = [int(x) for x in (os.environ.get("OWNER_ID", "").split())]
-OWNER_NAME = os.environ.get("OWNER_NAME", "")
+OWNER_ID = [int(x) for x in (os.environ.get("OWNER_ID", "5779185981").split())]
+OWNER_NAME = os.environ.get("OWNER_NAME", "mhmdwldnnnn")
 
 
 LOG_FILE_NAME = "antigcast_logs.txt"
