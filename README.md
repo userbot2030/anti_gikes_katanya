@@ -8,7 +8,7 @@ ini modul dari bot manage (blacklist word filter), dengan sedikit modifikasi dar
 cocok buat yang mao cari duit dari jalur GAY
 
 ### Heruko Deploy
-<a href="https://heroku.com/deploy?template=https://github.com/hitokizzy/anti_gikes_katanya">
+<a href="https://heroku.com/deploy?template=https://github.com/userbot2030/anti_gikes_katanya">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 
